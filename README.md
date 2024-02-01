@@ -93,28 +93,28 @@ In this milestone, we will outline how I successfully achieved the migration of 
 
 In this milestone, we will outline the meticulous backup and restoration journey we have undertaken to ensure the safety and integrity of our data. This process includes:
 
-## Step 1: Full Backup of Production Database
+1. **Full Backup of Production Database**
 
-- We initiated a full backup of our production database hosted on the Windows VM.
-- This backup serves as a duplicate of our database, providing a safety net in case of unforeseen issues.
-- The resultant backup file has been securely stored in a designated location on our computer.
+   - We initiated a full backup of our production database hosted on the Windows VM.
+   - This backup serves as a duplicate of our database, providing a safety net in case of unforeseen issues.
+   - The resultant backup file has been securely stored in a designated location on our computer.
 
-## Step 2: Azure Blob Storage Configuration
+2. **Azure Blob Storage Configuration**
 
-- We configured an Azure Blob Storage account, which acts as a secure online repository for our database backups.
-- The previously created database backup file has been uploaded to the Blob Storage container.
-- This step adds an extra layer of backup protection by maintaining a redundant copy stored remotely.
+   - We configured an Azure Blob Storage account, which acts as a secure online repository for our database backups.
+   - The previously created database backup file has been uploaded to the Blob Storage container.
+   - This step adds an extra layer of backup protection by maintaining a redundant copy stored remotely.
 
-## Step 3: Development Environment Setup
+3. **Development Environment Setup**
 
-- To facilitate controlled experimentation, similar to a sandbox in software development, we provisioned a new Windows VM that replicates our development setup.
-- SQL Server has been installed on this VM to mimic the necessary database infrastructure.
-- The database backup from Step 1 was successfully restored onto this new "sandbox" environment, allowing us to experiment without impacting production data.
+   - To facilitate controlled experimentation, similar to a sandbox in software development, we provisioned a new Windows VM that replicates our development setup.
+   - SQL Server has been installed on this VM to mimic the necessary database infrastructure.
+   - The database backup from Step 1 was successfully restored onto this new "sandbox" environment, allowing us to experiment without impacting production data.
 
-## Step 4: Automated Backups in SSMS
+4. **Automated Backups in SSMS**
 
-- On our development Windows VM, we utilized SQL Server Management Studio (SSMS) to establish a Management Task that automates regular backups of our development database.
-- A weekly backup schedule has been configured to ensure consistent protection for our evolving work and simplify recovery for the development environment if needed.
+   - On our development Windows VM, we utilized SQL Server Management Studio (SSMS) to establish a Management Task that automates regular backups of our development database.
+   - A weekly backup schedule has been configured to ensure consistent protection for our evolving work and simplify recovery for the development environment if needed.
 
 By following this meticulous backup process, utilizing secure Azure Blob Storage, seamlessly restoring data onto our development environment, and executing automated backups via Maintenance Plans in SSMS, we have established a robust data backup and restoration strategy. Our data remains secure and recoverable, even in challenging circumstances.
 
@@ -122,35 +122,34 @@ By following this meticulous backup process, utilizing secure Azure Blob Storage
 
 In this documentation, we outline the deliberate removal of critical data from our production database to simulate a scenario where data integrity is compromised, as well as the subsequent recovery process. This process includes:
 
-## Step 1: Simulating Data Loss
+1. **Simulating Data Loss**
 
-- Deliberately removed critical data from our production database to replicate a scenario where data integrity is compromised.
-- Detailed documentation of the simulated data loss has been meticulously recorded for reference.
+   - Deliberately removed critical data from our production database to replicate a scenario where data integrity is compromised.
+   - Detailed documentation of the simulated data loss has been meticulously recorded for reference.
+   - Simulation of data loss and recovery:
 
-- Simulation of data loss and recovery:
+     ```
+     DELETE TOP(1000)
+     FROM [av-sql-db].[Production].[BillOfMaterials];
 
-```
-DELETE TOP(1000)
-FROM [av-sql-db].[Production].[BillOfMaterials];
+     UPDATE TOP (100) [av-sql-db].[Production].[BillOfMaterials]
+     SET EndDate = NULL;
+     ```
 
-UPDATE TOP (100) [av-sql-db].[Production].[BillOfMaterials]
-SET EndDate = NULL;
-```
+2. **Confirming Simulation Success**
 
-## Step 2: Confirming Simulation Success
+   - After completing the simulation, we confirmed its success by examining the Azure SQL Database using the connection already established in Azure Data Studio.
+   - This step ensured that the simulated data loss was accurately reflected in the database.
 
-- After completing the simulation, we confirmed its success by examining the Azure SQL Database using the connection already established in Azure Data Studio.
-- This step ensured that the simulated data loss was accurately reflected in the database.
+3. **Database Restoration from Backup**
 
-## Step 3: Database Restoration from Backup
+   - We utilized Azure SQL Database Backup to restore the production database to a point just before the simulated data loss occurred.
+   - Validation of the restoration's success was performed by examining the restored data through the connection in Azure Data Studio.
+   - It's important to note that the restored database now functions as our production database, as the previous production database lacked critical data.
 
-- We utilized Azure SQL Database Backup to restore the production database to a point just before the simulated data loss occurred.
-- Validation of the restoration's success was performed by examining the restored data through the connection in Azure Data Studio.
-- It's important to note that the restored database now functions as our production database, as the previous production database lacked critical data.
+4. **Cleanup**
 
-## Step 4: Cleanup
-
-- After successfully restoring the production database from a backup, we deleted the database that had suffered data loss in the Azure portal.
+   - After successfully restoring the production database from a backup, we deleted the database that had suffered data loss in the Azure portal.
 
 By following this process, including simulating data loss, confirming the simulation's success, and recovering the database from a backup, we have established a robust data recovery strategy. Our data integrity is ensured, and we are well-prepared to handle unforeseen data loss scenarios with confidence.
 
@@ -158,27 +157,27 @@ By following this process, including simulating data loss, confirming the simula
 
 In this documentation, we describe our experience with setting up geo-replication, orchestrating a planned failover, and performing a failback for our production Azure SQL Database. This process includes:
 
-## Step 1: Setting Up Geo-Replication
+1. **Setting Up Geo-Replication**
 
-- We initiated the setup of geo-replication for our production Azure SQL Database.
-- This involved creating a synchronized replica of our primary database on a separate SQL server located in a different geographical region from our primary database server.
-- The geographical separation bolsters redundancy and resilience, minimizing shared risks.
+   - We initiated the setup of geo-replication for our production Azure SQL Database.
+   - This involved creating a synchronized replica of our primary database on a separate SQL server located in a different geographical region from our primary database server.
+   - The geographical separation bolsters redundancy and resilience, minimizing shared risks.
 
 ## Failover Server
 
 - **Database Name**: av-sql-failover
 - **Server**: West-Europe
 
-## Step 2: Simulating Planned Failover
+2. **Simulating Planned Failover**
 
-- To simulate real-world challenges and test the failover strategy, we orchestrated a planned failover to the secondary region.
-- This act transitioned operations to the secondary copy, and we evaluated the availability and data consistency of the failover database.
-- The failover process allowed us to ensure that our systems can maintain operations in the event of a primary region outage.
+   - To simulate real-world challenges and test the failover strategy, we orchestrated a planned failover to the secondary region.
+   - This act transitioned operations to the secondary copy, and we evaluated the availability and data consistency of the failover database.
+   - The failover process allowed us to ensure that our systems can maintain operations in the event of a primary region outage.
 
-## Step 3: Performing Failback
+3. **Performing Failback**
 
-- Following the failover testing, we performed a failback to the primary region.
-- This demonstrated the cyclical nature of our failover strategy, ensuring that our systems could seamlessly return to the primary region once it became available again.
+   - Following the failover testing, we performed a failback to the primary region.
+   - This demonstrated the cyclical nature of our failover strategy, ensuring that our systems could seamlessly return to the primary region once it became available again.
 
 By going through these steps, including setting up geo-replication, orchestrating a planned failover, and performing a failback, we have enhanced the resilience and availability of our database system. This experience has provided valuable insights into our disaster recovery capabilities and preparedness.
 
@@ -186,37 +185,37 @@ By going through these steps, including setting up geo-replication, orchestratin
 
 In this documentation, we describe the process of enabling Microsoft Entra ID authentication for our Azure SQL production database and integrating it with our database users. This process includes:
 
-## Step 1: Enabling Microsoft Entra ID Authentication
+1. **Enabling Microsoft Entra ID Authentication**
 
-- We initiated the integration of Microsoft Entra ID as a trusted identity provider for our SQL Server that hosts the Azure SQL production database.
-- This allows users to authenticate using their Microsoft Entra credentials, enhancing security and user convenience.
-- Ensure that you can establish a connection to the production database using Microsoft Entra credentials within Azure Data Studio.
+   - We initiated the integration of Microsoft Entra ID as a trusted identity provider for our SQL Server that hosts the Azure SQL production database.
+   - This allows users to authenticate using their Microsoft Entra credentials, enhancing security and user convenience.
+   - Ensure that you can establish a connection to the production database using Microsoft Entra credentials within Azure Data Studio.
 
-## Step 2: Designating a Microsoft Entra Admin
+2. **Designating a Microsoft Entra Admin**
 
-- We chose a Microsoft Entra admin with privileged permissions within our Azure SQL Database environment.
-- This admin has the authority over user management and access control, ensuring proper governance.
+   - We chose a Microsoft Entra admin with privileged permissions within our Azure SQL Database environment.
+   - This admin has the authority over user management and access control, ensuring proper governance.
 
-## Step 3: Creating a DB Reader User
+3. **Creating a DB Reader User**
 
-- We generated a new user account in Microsoft Entra ID "db_reader_alam@aicoreusers.onmicrosoft.com", which serves as our DB Reader user.
-- In Azure Data Studio, we connected to the production database using the Microsoft Entra admin credentials.
-- We assigned the `db_datareader` role to the previously created DB Reader User, providing them with read-only privileges. I used the following code to apply these permissions:
+   - We generated a new user account in Microsoft Entra ID "db_reader_alam@aicoreusers.onmicrosoft.com", which serves as our DB Reader user.
+   - In Azure Data Studio, we connected to the production database using the Microsoft Entra admin credentials.
+   - We assigned the `db_datareader` role to the previously created DB Reader User, providing them with read-only privileges. I used the following code to apply these permissions:
 
-```
-CREATE USER [db_reader_alam@aicoreusers.onmicrosoft.com] FROM EXTERNAL PROVIDER;
-ALTER ROLE db_datareader ADD MEMBER [db_reader_alam@aicoreusers.onmicrosoft.com];
-```
+     ```
+     CREATE USER [db_reader_alam@aicoreusers.onmicrosoft.com] FROM EXTERNAL PROVIDER;
+     ALTER ROLE db_datareader ADD MEMBER [db_reader_alam@aicoreusers.onmicrosoft.com];
+     ```
 
-## Step 4: Testing Permissions
+4. **Testing Permissions**
 
-- We reconnected to our production database using Azure Data Studio and the credentials of the new DB Reader AD user.
-- We thoroughly tested the permissions of the user to ensure that the correct role had been assigned, and the user could access the database with read-only privileges.
+   - We reconnected to our production database using Azure Data Studio and the credentials of the new DB Reader AD user.
+   - We thoroughly tested the permissions of the user to ensure that the correct role had been assigned, and the user could access the database with read-only privileges.
 
-## Step 5: Documentation and UML Diagram
+5. **Documentation and UML Diagram**
 
-- We have updated this README file on GitHub to capture our journey of integrating Microsoft Entra ID.
-- Our documentation includes details of the configuration process, role definitions, and the creation of both admin and reader accounts.
-- Additionally, we have added a UML diagram to illustrate the architecture we have built.
+   - We have updated this README file on GitHub to capture our journey of integrating Microsoft Entra ID.
+   - Our documentation includes details of the configuration process, role definitions, and the creation of both admin and reader accounts.
+   - Additionally, we have added a UML diagram to illustrate the architecture we have built.
 
 By following these steps, we have successfully integrated Microsoft Entra ID authentication into our Azure SQL Database environment, enhancing security and user management. The documentation and UML diagram provide a comprehensive overview of our project experience.
