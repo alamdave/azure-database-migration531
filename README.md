@@ -45,7 +45,7 @@ In this milestone, we were given the task of setting up the enviroment and produ
 ## Production Database Details
 
 - **Database Name**: av-sql-db_restored-01-02-2024
-- **Server Name**: av-server-sql.database.windows.net
+- **Server Name**: UK South
 - **Security Measures**: SSL login, Entra-ID, Transparent Data Encryption.
 - **Backup and Maintenance**: Automated backup strategy, Geo-differenciated failover group for disaster recovery.
 
