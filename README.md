@@ -1,6 +1,6 @@
 # azure-database-migration531 - README
 
-## Achievements in Milestone 1 & 2
+## Achievements in Milestone 1 & 2: Set Up Enviroment and Production Enviroment
 
 In this milestone, we were given the task of setting up the enviroment and production enviroment, we have successfully accomplished the following tasks:
 
@@ -11,18 +11,18 @@ In this milestone, we were given the task of setting up the enviroment and produ
    - Git Repository: https://github.com/alamdave/azure-database-migration531
    - Inclusion of README.md.
 
-1. **Virtual Machine Setup**
+2. **Virtual Machine Setup**
 
    - We provisioned a virtual machine (VM) on the Azure cloud platform to host our application and database.
    - The VM is configured with the necessary resources (CPU, RAM, storage) based on our project requirements.
    - We ensured that the VM is running on the windows 10x64 operating system for our application.
 
-1. **SQL Server Installation**
+3. **SQL Server Installation**
 
    - We installed Microsoft SQL Server on the virtual machine to serve as our database management system.
    - The SQL Server version used is SQL Server 2022 to leverage the latest features and security enhancements.
 
-1. **Production Database Creation**
+4. **Production Database Creation**
    - We created the production database by restoring it from a backup file.
    - The backup file corresponds to the renowned Microsoft SQL Server database known as AdventureWorks.
    - AdventureWorks is an illustrative and comprehensive sample database that emulates a fictional manufacturing company's operations. It encompasses various tables, views, stored procedures, and data, offering a rich and diverse dataset.
@@ -49,7 +49,7 @@ In this milestone, we were given the task of setting up the enviroment and produ
 - **Security Measures**: SSL login, Entra-ID, Transparent Data Encryption.
 - **Backup and Maintenance**: Automated backup strategy, Geo-differenciated failover group for disaster recovery.
 
-## Achievements in Milestone 3
+## Achievements in Milestone 3: Migrate to Azure SQL Database
 
 In this milestone, we will outline how I successfully achieved the migration of our on-premise database to Azure SQL Database. Here are the key accomplishments:
 
@@ -89,7 +89,7 @@ In this milestone, we will outline how I successfully achieved the migration of 
 
 - **Tool Installation**: Azure Data Studio has been installed and configured on the production Windows VM.
 
-## Achievements in Milestone 4
+## Achievements in Milestone 4: Data Backup and Restoration
 
 In this milestone, we will outline the meticulous backup and restoration journey we have undertaken to ensure the safety and integrity of our data. This process includes:
 
@@ -118,7 +118,7 @@ In this milestone, we will outline the meticulous backup and restoration journey
 
 By following this meticulous backup process, utilizing secure Azure Blob Storage, seamlessly restoring data onto our development environment, and executing automated backups via Maintenance Plans in SSMS, we have established a robust data backup and restoration strategy. Our data remains secure and recoverable, even in challenging circumstances.
 
-## Achievements in Milestone 5
+## Achievements in Milestone 5: Disaster Recovery Simulation
 
 In this documentation, we outline the deliberate removal of critical data from our production database to simulate a scenario where data integrity is compromised, as well as the subsequent recovery process. This process includes:
 
