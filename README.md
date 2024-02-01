@@ -89,7 +89,7 @@ In this milestone, we will outline how I successfully achieved the migration of 
 
 - **Tool Installation**: Azure Data Studio has been installed and configured on the production Windows VM.
 
-## Achievements in Milestone 3
+## Achievements in Milestone 4
 
 In this milestone, we will outline the meticulous backup and restoration journey we have undertaken to ensure the safety and integrity of our data. This process includes:
 
@@ -118,7 +118,7 @@ In this milestone, we will outline the meticulous backup and restoration journey
 
 By following this meticulous backup process, utilizing secure Azure Blob Storage, seamlessly restoring data onto our development environment, and executing automated backups via Maintenance Plans in SSMS, we have established a robust data backup and restoration strategy. Our data remains secure and recoverable, even in challenging circumstances.
 
-## Achievements in Milestone 4
+## Achievements in Milestone 5
 
 In this documentation, we outline the deliberate removal of critical data from our production database to simulate a scenario where data integrity is compromised, as well as the subsequent recovery process. This process includes:
 
@@ -128,12 +128,14 @@ In this documentation, we outline the deliberate removal of critical data from o
 - Detailed documentation of the simulated data loss has been meticulously recorded for reference.
 
 - Simulation of data loss and recovery:
-  `DELETE TOP(1000)
-  FROM [av-sql-db].[Production].[BillOfMaterials];
+
+```
+DELETE TOP(1000)
+FROM [av-sql-db].[Production].[BillOfMaterials];
 
 UPDATE TOP (100) [av-sql-db].[Production].[BillOfMaterials]
 SET EndDate = NULL;
-`
+```
 
 ## Step 2: Confirming Simulation Success
 
