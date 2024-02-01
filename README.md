@@ -44,10 +44,10 @@ In this milestone, we were given the task of setting up the enviroment and produ
 
 ## Production Database Details
 
-- **Database Name**: Provide the name of the production database.
-- **Schema Design**: Describe the data schema, including tables, columns, and relationships.
-- **Security Measures**: Detail the security measures implemented, such as user roles, access control, and encryption.
-- **Backup and Maintenance**: Explain the backup strategy and any maintenance plans in place to ensure database reliability and disaster recovery.
+- **Database Name**: av-sql-db_restored-01-02-2024
+- **Server Name**: av-server-sql.database.windows.net
+- **Security Measures**: SSL login, Entra-ID, Transparent Data Encryption.
+- **Backup and Maintenance**: Automated backup strategy, Geo-differenciated failover group for disaster recovery.
 
 ## Achievements in Milestone 3
 
@@ -153,3 +153,70 @@ SET EndDate = NULL;
 - After successfully restoring the production database from a backup, we deleted the database that had suffered data loss in the Azure portal.
 
 By following this process, including simulating data loss, confirming the simulation's success, and recovering the database from a backup, we have established a robust data recovery strategy. Our data integrity is ensured, and we are well-prepared to handle unforeseen data loss scenarios with confidence.
+
+## Achievements in Milestone 6: Geo Replication and Failover
+
+In this documentation, we describe our experience with setting up geo-replication, orchestrating a planned failover, and performing a failback for our production Azure SQL Database. This process includes:
+
+## Step 1: Setting Up Geo-Replication
+
+- We initiated the setup of geo-replication for our production Azure SQL Database.
+- This involved creating a synchronized replica of our primary database on a separate SQL server located in a different geographical region from our primary database server.
+- The geographical separation bolsters redundancy and resilience, minimizing shared risks.
+
+## Failover Server
+
+- **Database Name**: av-sql-failover
+- **Server**: West-Europe
+
+## Step 2: Simulating Planned Failover
+
+- To simulate real-world challenges and test the failover strategy, we orchestrated a planned failover to the secondary region.
+- This act transitioned operations to the secondary copy, and we evaluated the availability and data consistency of the failover database.
+- The failover process allowed us to ensure that our systems can maintain operations in the event of a primary region outage.
+
+## Step 3: Performing Failback
+
+- Following the failover testing, we performed a failback to the primary region.
+- This demonstrated the cyclical nature of our failover strategy, ensuring that our systems could seamlessly return to the primary region once it became available again.
+
+By going through these steps, including setting up geo-replication, orchestrating a planned failover, and performing a failback, we have enhanced the resilience and availability of our database system. This experience has provided valuable insights into our disaster recovery capabilities and preparedness.
+
+## Achievements in Milestone 7: Microsoft Entra Directory Integration
+
+In this documentation, we describe the process of enabling Microsoft Entra ID authentication for our Azure SQL production database and integrating it with our database users. This process includes:
+
+## Step 1: Enabling Microsoft Entra ID Authentication
+
+- We initiated the integration of Microsoft Entra ID as a trusted identity provider for our SQL Server that hosts the Azure SQL production database.
+- This allows users to authenticate using their Microsoft Entra credentials, enhancing security and user convenience.
+- Ensure that you can establish a connection to the production database using Microsoft Entra credentials within Azure Data Studio.
+
+## Step 2: Designating a Microsoft Entra Admin
+
+- We chose a Microsoft Entra admin with privileged permissions within our Azure SQL Database environment.
+- This admin has the authority over user management and access control, ensuring proper governance.
+
+## Step 3: Creating a DB Reader User
+
+- We generated a new user account in Microsoft Entra ID "db_reader_alam@aicoreusers.onmicrosoft.com", which serves as our DB Reader user.
+- In Azure Data Studio, we connected to the production database using the Microsoft Entra admin credentials.
+- We assigned the `db_datareader` role to the previously created DB Reader User, providing them with read-only privileges. I used the following code to apply these permissions:
+
+```
+CREATE USER [db_reader_alam@aicoreusers.onmicrosoft.com] FROM EXTERNAL PROVIDER;
+ALTER ROLE db_datareader ADD MEMBER [db_reader_alam@aicoreusers.onmicrosoft.com];
+```
+
+## Step 4: Testing Permissions
+
+- We reconnected to our production database using Azure Data Studio and the credentials of the new DB Reader AD user.
+- We thoroughly tested the permissions of the user to ensure that the correct role had been assigned, and the user could access the database with read-only privileges.
+
+## Step 5: Documentation and UML Diagram
+
+- We have updated this README file on GitHub to capture our journey of integrating Microsoft Entra ID.
+- Our documentation includes details of the configuration process, role definitions, and the creation of both admin and reader accounts.
+- Additionally, we have added a UML diagram to illustrate the architecture we have built.
+
+By following these steps, we have successfully integrated Microsoft Entra ID authentication into our Azure SQL Database environment, enhancing security and user management. The documentation and UML diagram provide a comprehensive overview of our project experience.
