@@ -1,8 +1,15 @@
 # azure-database-migration531 - README
 
-## Achievements in Milestone
+## Achievements in Milestone 1 & 2
 
-In this milestone, we have successfully accomplished the following tasks:
+In this milestone, we were given the task of setting up the enviroment and production enviroment, we have successfully accomplished the following tasks:
+
+1. **Azure Account and Git Repo**
+
+   - We are using GitHub to track changes and progress.
+   - We will be using the Azure suite, an account has been created with access to relevant services.
+   - Git Repository: https://github.com/alamdave/azure-database-migration531
+   - Inclusion of README.md.
 
 1. **Virtual Machine Setup**
 
@@ -10,12 +17,12 @@ In this milestone, we have successfully accomplished the following tasks:
    - The VM is configured with the necessary resources (CPU, RAM, storage) based on our project requirements.
    - We ensured that the VM is running on the windows 10x64 operating system for our application.
 
-2. **SQL Server Installation**
+1. **SQL Server Installation**
 
    - We installed Microsoft SQL Server on the virtual machine to serve as our database management system.
    - The SQL Server version used is SQL Server 2022 to leverage the latest features and security enhancements.
 
-3. **Production Database Creation**
+1. **Production Database Creation**
    - We created the production database by restoring it from a backup file.
    - The backup file corresponds to the renowned Microsoft SQL Server database known as AdventureWorks.
    - AdventureWorks is an illustrative and comprehensive sample database that emulates a fictional manufacturing company's operations. It encompasses various tables, views, stored procedures, and data, offering a rich and diverse dataset.
@@ -42,4 +49,42 @@ In this milestone, we have successfully accomplished the following tasks:
 - **Security Measures**: Detail the security measures implemented, such as user roles, access control, and encryption.
 - **Backup and Maintenance**: Explain the backup strategy and any maintenance plans in place to ensure database reliability and disaster recovery.
 
-## Next Steps
+## Achievements in Milestone 3
+
+In this milestone, we have successfully achieved the migration of our on-premise database to Azure SQL Database. Here are the key accomplishments:
+
+1. **Azure SQL Database Configuration**
+
+   - We created an Azure SQL Database to serve as the target for migrating our on-premise database.
+   - The SQL Server associated with the Azure SQL Database uses SQL login as the chosen authentication method.
+   - Firewall rules have been configured, including the addition of our IP address, to ensure secure access to the Azure SQL Database.
+
+2. **Azure Data Studio Integration**
+
+   - Azure Data Studio has been installed and configured on our production Windows VM.
+   - We established connections to both the existing on-premise database and the newly created Azure SQL Database using Azure Data Studio.
+
+3. **Schema Migration**
+
+   - We installed the SQL Server Schema Compare extension within Azure Data Studio.
+   - Leveraging this extension, we compared and migrated the schema from the on-premise database to the Azure SQL Database.
+
+4. **Data Migration**
+
+   - We installed the Azure SQL Migration extension within Azure Data Studio to facilitate the smooth transfer of data from the on-premise database to the Azure SQL Database.
+
+5. **Validation**
+
+   - We carried out a comprehensive validation process to ensure the success of the database migration.
+   - This included thorough inspections of data, schema, and configurations, ensuring that the migration adheres to principles of data integrity.
+
+## Azure SQL Database Configuration Details
+
+- **Database Name**: av-server-sql
+- **Authentication Method**: SQL login.
+- **Firewall Rules**: Rule name: windows-vm-alamdave Start IPv4: 20.77.14.195 End IPv4: 20.77.14.195
+- **Azure Data Migration service Name**: Data-Migration-service-aicore
+
+## Azure Data Studio Configuration
+
+- **Tool Installation**: Azure Data Studio has been installed and configured on the production Windows VM.
