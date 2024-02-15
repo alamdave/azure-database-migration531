@@ -82,7 +82,7 @@ In this milestone, we will outline how I successfully achieved the migration of 
 
 - **Database Name**: av-server-sql
 - **Authentication Method**: SQL login.
-- **Firewall Rules**: Rule name: windows-vm-alamdave Start IPv4: 20.77.14.195 End IPv4: 20.77.14.195
+- **Firewall Rules**: Rule name: windows-vm-alamdave
 - **Azure Data Migration service Name**: Data-Migration-service-aicore
 
 ## Azure Data Studio Configuration
