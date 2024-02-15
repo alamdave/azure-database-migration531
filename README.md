@@ -33,7 +33,7 @@ In this milestone, we were given the task of setting up the enviroment and produ
 - **Cloud Platform**: Azure
 - **VM Specifications**: vCPUs: 2, RAM: 8GiB, STORAGE: 127GiB - premium SSD LRS
 - **Operating System**: Image plan: win10-22h2-pro-g2, Windows-10-pro-x64
-- **Network Configuration**: Security Type: Trustesd launch, Describe any networking configurations, such as public/private IP addresses, firewall rules, and network security groups.
+- **Network Configuration**: Security Type: Trusted launch
 
 ## SQL Server Installation Details
 
